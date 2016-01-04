@@ -19,7 +19,13 @@ PATH_FLAGS = --prefix=/usr
 CONF_FLAGS = --with-libunwind
 CFLAGS = -static -static-libgcc -Wl,-static -lc -I$(DEP_DIR)/usr/include
 
-.PHONY : default source manual container deps build version push local
+LIBUNWIND_VERSION = 1.1-1
+LIBUNWIND_URL = https://github.com/amylum/libunwind/releases/download/$(LIBUNWIND_VERSION)/libunwind.tar.gz
+LIBUNWIND_TAR = /tmp/libunwind.tar.gz
+LIBUNWIND_DIR = /tmp/libunwind
+LIBUNWIND_PATH = -I$(LIBUNWIND_DIR)/usr/include -L$(LIBUNWIND_DIR)/usr/lib
+
+.PHONY : default source deps manual container deps build version push local
 
 default: container
 
@@ -38,11 +44,15 @@ container:
 deps:
 	mkdir -p $(DEP_DIR)/usr/include/
 	cp -R /usr/include/{linux,asm,asm-generic} $(DEP_DIR)/usr/include/
+	rm -rf $(LIBUNWIND_DIR) $(LIBUNWIND_TAR)
+	mkdir $(LIBUNWIND_DIR)
+	curl -sLo $(LIBUNWIND_TAR) $(LIBUNWIND_URL)
+	tar -x -C $(LIBUNWIND_DIR) -f $(LIBUNWIND_TAR)
 
 build: source deps
 	rm -rf $(BUILD_DIR)
 	cp -R $(SOURCE_PATH) $(BUILD_DIR)
-	cd $(BUILD_DIR) && CC=musl-gcc CFLAGS='$(CFLAGS)' ./configure $(PATH_FLAGS) $(CONF_FLAGS)
+	cd $(BUILD_DIR) && CC=musl-gcc CFLAGS='$(CFLAGS) $(LIBUNWIND_PATH)' ./configure $(PATH_FLAGS) $(CONF_FLAGS)
 	cd $(BUILD_DIR) && make DESTDIR=$(RELEASE_DIR) install
 	mkdir -p $(RELEASE_DIR)/usr/share/licenses/$(PACKAGE)
 	cp $(BUILD_DIR)/COPYING $(RELEASE_DIR)/usr/share/licenses/$(PACKAGE)/LICENSE
