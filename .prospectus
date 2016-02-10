@@ -1,7 +1,7 @@
 item do
   expected do
     url_xpath
-    url 'http://sourceforge.net/projects/strace/'
+    url 'https://sourceforge.net/projects/strace/'
     xpath '//*[@id="download_button"]/a[1]/span/small'
     regex /^strace-([\d.]+).tar.xz$/
   end
