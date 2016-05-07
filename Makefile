@@ -17,7 +17,7 @@ SOURCE_TARBALL = /tmp/source.tar.gz
 
 PATH_FLAGS = --prefix=/usr
 CONF_FLAGS = --with-libunwind
-CFLAGS = -static -static-libgcc -Wl,-static -lc -I$(DEP_DIR)/usr/include
+CFLAGS = -I$(DEP_DIR)/usr/include
 
 LIBUNWIND_VERSION = 1.1-1
 LIBUNWIND_URL = https://github.com/amylum/libunwind/releases/download/$(LIBUNWIND_VERSION)/libunwind.tar.gz
