@@ -19,7 +19,7 @@ PATH_FLAGS = --prefix=/usr
 CONF_FLAGS = --with-libunwind
 CFLAGS = -I$(DEP_DIR)/usr/include
 
-LIBUNWIND_VERSION = 1.1-2
+LIBUNWIND_VERSION = 1.1-3
 LIBUNWIND_URL = https://github.com/amylum/libunwind/releases/download/$(LIBUNWIND_VERSION)/libunwind.tar.gz
 LIBUNWIND_TAR = /tmp/libunwind.tar.gz
 LIBUNWIND_DIR = /tmp/libunwind
