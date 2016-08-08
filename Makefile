@@ -7,13 +7,9 @@ BUILD_DIR = /tmp/$(PACKAGE)-build
 RELEASE_DIR = /tmp/$(PACKAGE)-release
 RELEASE_FILE = /tmp/$(PACKAGE).tar.gz
 
-PACKAGE_VERSION = 4.13
+PACKAGE_VERSION = $$(git --git-dir=upstream/.git describe --tags | sed 's/v//')
 PATCH_VERSION = $$(cat version)
 VERSION = $(PACKAGE_VERSION)-$(PATCH_VERSION)
-
-SOURCE_URL = http://downloads.sourceforge.net/$(PACKAGE)/$(PACKAGE)-$(PACKAGE_VERSION).tar.xz
-SOURCE_PATH = /tmp/source
-SOURCE_TARBALL = /tmp/source.tar.gz
 
 PATH_FLAGS = --prefix=/usr
 CONF_FLAGS = --with-libunwind
@@ -25,17 +21,14 @@ LIBUNWIND_TAR = /tmp/libunwind.tar.gz
 LIBUNWIND_DIR = /tmp/libunwind
 LIBUNWIND_PATH = -I$(LIBUNWIND_DIR)/usr/include -L$(LIBUNWIND_DIR)/usr/lib
 
-.PHONY : default source deps manual container deps build version push local
+.PHONY : default submodule deps manual container deps build version push local
 
-default: container
+default: submodule container
 
-source:
-	rm -rf $(SOURCE_PATH) $(SOURCE_TARBALL)
-	mkdir $(SOURCE_PATH)
-	curl -sLo $(SOURCE_TARBALL) $(SOURCE_URL)
-	tar -x -C $(SOURCE_PATH) -f $(SOURCE_TARBALL) --strip-components=1
+submodule:
+	git submodule update --init
 
-manual:
+manual: submodule
 	./meta/launch /bin/bash || true
 
 container:
@@ -49,9 +42,9 @@ deps:
 	curl -sLo $(LIBUNWIND_TAR) $(LIBUNWIND_URL)
 	tar -x -C $(LIBUNWIND_DIR) -f $(LIBUNWIND_TAR)
 
-build: source deps
+build: deps
 	rm -rf $(BUILD_DIR)
-	cp -R $(SOURCE_PATH) $(BUILD_DIR)
+	cp -R upstream $(BUILD_DIR)
 	cd $(BUILD_DIR) && CC=musl-gcc CFLAGS='$(CFLAGS) $(LIBUNWIND_PATH)' CPPFLAGS='$(CFLAGS) $(LIBUNWIND_PATH)' ./configure $(PATH_FLAGS) $(CONF_FLAGS)
 	cd $(BUILD_DIR) && make DESTDIR=$(RELEASE_DIR) install
 	mkdir -p $(RELEASE_DIR)/usr/share/licenses/$(PACKAGE)

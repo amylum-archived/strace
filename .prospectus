@@ -1,9 +1,8 @@
 item do
   expected do
-    url_xpath
-    url 'https://sourceforge.net/projects/strace/'
-    xpath '//*[@id="download_button"]/a[1]/span/small'
-    regex /^strace-([\d.]+).tar.xz$/
+    github_tag
+    repo 'strace/strace'
+    regex /v([\d.]+)/
   end
 
   actual do
