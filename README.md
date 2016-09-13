@@ -1,7 +1,11 @@
 strace
 ==========
 
-Package repo for [strace](http://sourceforge.net/projects/strace/) (I'm sorry, it's sourceforge).
+[![Build Status](https://img.shields.io/circleci/project/amylum/strace.svg)](https://circleci.com/gh/amylum/strace)
+[![GitHub release](https://img.shields.io/github/release/amylum/strace.svg)](https://github.com/amylum/strace/releases)
+[![BSD 3-clause Licensed](https://img.shields.io/badge/license-BSD--3-green.svg)](https://tldrlegal.com/license/bsd-3-clause-license-(revised))
+
+Package repo for [strace](https://github.com/strace/strace)
 
 ## Usage
 

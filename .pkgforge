@@ -1,0 +1,28 @@
+name 'strace'
+org 'amylum'
+
+licenses 'COPYING'
+
+deps(
+  libunwind: '1.1-4',
+  'linux-api-headers': '4.8-rc4-1'
+)
+
+configure_flags(
+  prefix: '/usr',
+  'with-libunwind': nil
+)
+
+cflags
+harden
+
+build do
+  run './bootstrap'
+  configure
+  make
+  install
+end
+
+test do
+  run 'strace -V'
+end
