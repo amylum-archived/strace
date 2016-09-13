@@ -18,7 +18,7 @@ harden
 
 build do
   run './bootstrap'
-  configure
+  configure 'CPPFLAGS' => @forge.cflags.join(' ')
   make
   install
 end
