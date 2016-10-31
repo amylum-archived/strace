@@ -4,8 +4,8 @@ org 'amylum'
 licenses 'COPYING'
 
 deps(
-  libunwind: '1.1-8',
-  'linux-api-headers': '4.9-rc2-3'
+  libunwind: '1.1-9',
+  'linux-api-headers': '4.9-rc3-2'
 )
 
 configure_flags(
