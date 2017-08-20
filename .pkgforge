@@ -5,7 +5,7 @@ licenses 'COPYING'
 
 deps(
   libunwind: '1.2-5',
-  'linux-api-headers': '4.11-4'
+  'linux-api-headers': '4.12-1'
 )
 
 configure_flags(
