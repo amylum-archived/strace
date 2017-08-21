@@ -4,7 +4,7 @@ org 'amylum'
 licenses 'COPYING'
 
 deps(
-  libunwind: '1.2-5',
+  libunwind: '1.2.1-1',
   'linux-api-headers': '4.12-1'
 )
 
