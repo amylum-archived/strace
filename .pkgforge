@@ -5,12 +5,12 @@ licenses 'COPYING'
 
 deps(
   libunwind: {
-    version: '1.3.1-1',
-    checksum: '4b1381326260c32f490449eb0824d213cfb500c2f2ec469f02a35f20475d153e'
+    version: '1.3.1-2',
+    checksum: 'b66d3bb4e240f061117ec92057e32ce791eafa99b3aa32135522e57961478b7b'
   },
   'linux-api-headers': {
-    version: '4.20-1',
-    checksum: 'aed037b2b3fb2df77ca19359a20188d39c25d011febf4d3733d251fa87ca9636'
+    version: '5.0-1',
+    checksum: '0703e1a5406fea7aa0072034e815fc2b3188151732ec61b134b0e54aa3e752ab'
   }
 )
 
